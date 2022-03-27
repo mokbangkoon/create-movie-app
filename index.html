@@ -21,12 +21,19 @@
         reRender()
     }
     function reRender() {
-        ReactDOM.render(<Container />, root)
+        ReactDOM.render(<App />, root)
     }
-    const Container = () => (<div>
+    const App = () => {
+    const [counter ,setcounter] = React.useState(0);
+    const onClick = () => {
+        
+        setcounter(counter+2)
+    }
+    return (<div>
            <h3>Total Count: {counter} </h3>
-           <button onClick = {countUp}> click me!! </button>          
+           <button onClick = {onClick}> click me!! </button>          
         </div>)
+    }
     reRender();
 </script>
 </html>
