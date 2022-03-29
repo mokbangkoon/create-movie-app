@@ -9,13 +9,16 @@
 <body>
 <div id = "root"></div>
 </body>
-<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
 
 <script type="text/babel">
     const root = document.getElementById("root");
-    const Btn = ({text ,onClick}) => {
+    const Btn = ({text ,onClick,fontSize =20}) => {
+        
     
     return (<div>
           <button onClick = {onClick} style= {{
@@ -23,20 +26,25 @@
               color:"white",
               padding:"10px,20xp",
               borderRadius:10,
+              fontSize : fontSize
              
           }}>{text}</button> 
           
         </div>)
     }
-   const MemorizedBtn = React.memo(Btn)
+
+   Btn.propTypes = {
+       text : PropTypes.string.isRequired,
+       fontSize : PropTypes.number,
+   }
     const App = () => {
     const [value,setValue] = React.useState("save change");
     const changeValue = () => {
         setValue("revert changes")
     }
     return (<div>
-    <MemorizedBtn text = {value} onClick = {changeValue}/>
-    <MemorizedBtn text = 'good btn' />
+    <Btn text = {value} onClick = {changeValue} fontSize={18}/>
+    <Btn text = {14} />
 
     </div>)
     }
