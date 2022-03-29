@@ -15,60 +15,28 @@
 
 <script type="text/babel">
     const root = document.getElementById("root");
-
-    const MinutetoHours = () => {
-    const [minute, setMinute] = React.useState()
-    const [flipped, setFlipped] = React.useState(false)
-    const onChange = (event) => {
-        setMinute(event.target.value)
-    }
-    const onClick = () => {
-        setMinute(0)
-    }
-    const flip = () => {
-        onClick()
-       setFlipped(current => !current) 
-    }
+    const Btn = ({text ,onClick}) => {
+    
     return (<div>
-           
-           <label htmlFor='minutes'>minute</label> 
-           <input 
-           value = {flipped? minute*60:minute} id = 'minutes' placeholder = 'minutes' type = 'number'
-           onChange = {onChange}
-           disabled = {flipped === false ? false:true}>
-           </input>
-           <label htmlFor='hours'>hours</label>
-           <input 
-           value = {flipped ? minute : minute/60} id = 'hours' placeholder = 'Hours' type = 'number'
-           disabled = {flipped === false ? true:false}
-           onChange = {onChange}>
-           </input>       
-           <div>
-            <label>reset</label>
-           <button onClick ={onClick} > reset </button> 
-           <button onClick ={flip} > flip </button> 
-           </div>
+          <button onClick = {onClick} style= {{
+              backgroundColor:"red",
+              color:"white",
+              padding:"10px,20xp",
+              borderRadius:10,
+             
+          }}>{text}</button> 
+          
         </div>)
     }
-    function KmToMiles() {
-        return (
-            <div>KmToMiles</div>
-        )
-    }
+   const MemorizedBtn = React.memo(Btn)
     const App = () => {
-    const [index,setIndex] = React.useState('0')
-    const onSelect = (event) => {
-        setIndex(event.target.value)
+    const [value,setValue] = React.useState("save change");
+    const changeValue = () => {
+        setValue("revert changes")
     }
     return (<div>
-    <h3>super Counter</h3>
-    <select onChange = {onSelect}>
-        <option value = '0'>Minutes & hours</option>
-        <option value = '1'>km & miles</option>
-        </select>
-    {index === '0' ? <MinutetoHours /> : null}
-    {index === '1' ? <KmToMiles /> : null}
-
+    <MemorizedBtn text = {value} onClick = {changeValue}/>
+    <MemorizedBtn text = 'good btn' />
 
     </div>)
     }
